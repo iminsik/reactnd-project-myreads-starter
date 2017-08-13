@@ -17,7 +17,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const shelfCategories = ['read', 'currentlyReading', 'wantToRead']
+    const shelfCategories = [{category: 'read', title: 'Read'}, {category: 'currentlyReading', title: 'Currently Reading'}, {category: 'wantToRead', title: 'Want To Read'}]
 
     return (
       <div className="app">
@@ -35,10 +35,10 @@ class BooksApp extends React.Component {
                 {
                   shelfCategories.map((shelf, idx) => (
                     <div key={idx} className="bookshelf">
-                      <h2 className="bookshelf-title">{shelf}</h2>
+                      <h2 className="bookshelf-title">{shelf.title}</h2>
                       <div className="bookshelf-books">
                       <ListBooks
-                        books={this.state.books.filter(book => book.shelf === shelf)} />
+                        books={this.state.books.filter(book => book.shelf === shelf.category)} />
                       </div>
                     </div>
                   ))
