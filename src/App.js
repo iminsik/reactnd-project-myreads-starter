@@ -33,16 +33,15 @@ class BooksApp extends React.Component {
               <div className="list-books-content">
                 <div>
                 {
-                    shelfCategories.map((shelf, idx) => (
-                      <div className="bookshelf">
-                        <h2 className="bookshelf-title">{shelf}</h2>
-                        <div className="bookshelf-books">
-                        <ListBooks
-                          key={idx}
-                          books={this.state.books.filter(book => book.shelf === shelf)} />
-                        </div>
+                  shelfCategories.map((shelf, idx) => (
+                    <div key={idx} className="bookshelf">
+                      <h2 className="bookshelf-title">{shelf}</h2>
+                      <div className="bookshelf-books">
+                      <ListBooks
+                        books={this.state.books.filter(book => book.shelf === shelf)} />
                       </div>
-                    ))
+                    </div>
+                  ))
                 }
                 </div>
               </div>
