@@ -3,9 +3,6 @@ import React from 'react'
 class ListBooks extends React.Component {
   render() {
     return (
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.props.shelf}</h2>
-        <div className="bookshelf-books">
           <ol className="books-grid">
           {
             this.props.books.map((book, idx) => ( 
@@ -30,8 +27,6 @@ class ListBooks extends React.Component {
             ))
           }
           </ol>
-        </div>
-      </div>
     )
   }
 }
