@@ -1,6 +1,16 @@
 import React from 'react'
+import * as BooksAPI from './BooksAPI'
 
 class ListBooks extends React.Component {
+  updateBookShelf(book, shelf) {
+    BooksAPI.update(book, shelf)
+      .then((data) => {
+        if(typeof this.props.refresh === 'function') {
+          book.shelf = shelf 
+          this.props.refresh(book)
+        }
+      })
+  }
   render() {
     return (
           <ol className="books-grid">
@@ -11,8 +21,10 @@ class ListBooks extends React.Component {
                   <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.smallThumbnail}")` }}></div>
                     <div className="book-shelf-changer">
-                      <select defaultValue={book.shelf}>
-                        <option value="none" disabled>Move to...</option>
+                      <select
+                        defaultValue={book.shelf === undefined ? "none" : book.shelf}
+                        onChange={(e) => {this.updateBookShelf(book, e.target.value, this.props)}}>
+                        <option value="menu" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
                         <option value="read">Read</option>

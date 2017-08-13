@@ -10,16 +10,27 @@ class SearchBooks extends React.Component {
   componentDidMount() {
     this.searchInput.focus()
   }
+  refresh() {
+    var that = this
+    return function(book) {
+      that.state.books.filter(bk => bk.id === book.id)[0].shelf = book.shelf
+      that.setState({books: that.state.books})
+    }
+  }
   searchBooks(term) {
-    BooksAPI.search(term, 10)
-    .then(books => {
-      if(Array.isArray(books)) {
-        this.setState({books})
-        console.log(books)
-      } else {
-        this.setState({books: []})
-      }
-    })
+    if(term === '') {
+      this.setState({books: []})
+    } else {
+      BooksAPI.search(term, 10)
+      .then(books => {
+        if(Array.isArray(books)) {
+          this.setState({books})
+          console.log(books)
+        } else {
+          this.setState({books: []})
+        }
+      })
+    }
   }
   render () {
     return (
@@ -35,7 +46,9 @@ class SearchBooks extends React.Component {
           </div>
         </div>
         <div className="search-books-results">
-          <ListBooks books={this.state.books}/>
+          <ListBooks
+            refresh={this.refresh()}
+            books={this.state.books}/>
         </div>
       </div>
     )
