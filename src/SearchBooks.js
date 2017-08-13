@@ -5,9 +5,14 @@ import * as BooksAPI from './BooksAPI'
 
 class SearchBooks extends React.Component {
   state = {
-    books: []
+    books: [],
+    mybooks: []
   }
   componentDidMount() {
+    BooksAPI.getAll()
+      .then(mybooks => {
+        this.setState({mybooks})
+       })
     this.searchInput.focus()
   }
   refresh() {
@@ -24,6 +29,14 @@ class SearchBooks extends React.Component {
       BooksAPI.search(term, 10)
       .then(books => {
         if(Array.isArray(books)) {
+          books.forEach(book => {
+            let founds = this.state.mybooks.filter(mybook => mybook.id === book.id) 
+            if(founds.length > 0) {
+              book.shelf = founds[0].shelf 
+            } else {
+              book.shelf = 'none' 
+            }
+          })
           this.setState({books})
           console.log(books)
         } else {
