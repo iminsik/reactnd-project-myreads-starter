@@ -7,6 +7,9 @@ class SearchBooks extends React.Component {
   state = {
     books: []
   }
+  componentDidMount() {
+    this.searchInput.focus()
+  }
   searchBooks(term) {
     BooksAPI.search(term, 10)
     .then(books => {
@@ -25,6 +28,7 @@ class SearchBooks extends React.Component {
           <Link to="/" className="close-search">Close</Link>
           <div className="search-books-input-wrapper">
             <input
+              ref={(input) => { this.searchInput = input }}
               type="text"
               onChange={(e)=>this.searchBooks(e.target.value)}
               placeholder="Search by title or author"/> 
