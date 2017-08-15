@@ -16,7 +16,9 @@ class Books extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      this.setState({books})
+      if(Array.isArray(books)) {
+        this.setState({books})
+      }
     })
   }
 

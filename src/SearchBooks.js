@@ -11,8 +11,10 @@ class SearchBooks extends React.Component {
   componentDidMount() {
     BooksAPI.getAll()
       .then(mybooks => {
-        this.setState({mybooks})
-       })
+        if(Array.isArray(mybooks)) {
+          this.setState({mybooks})
+        } 
+      })
     this.searchInput.focus()
   }
   refresh() {
