@@ -38,7 +38,6 @@ class SearchBooks extends React.Component {
             }
           })
           this.setState({books})
-          console.log(books)
         } else {
           this.setState({books: []})
         }
